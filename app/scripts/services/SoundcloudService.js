@@ -11,7 +11,7 @@
 
 	    vm.embed = function( trackUrl ) {
 		  vm.trackUrl = trackUrl;
-	      vm.url = 'http://api.soundcloud.com/oembed?format=json&url=' + vm.trackUrl + '&maxheight=200';
+	      vm.url = 'http://api.soundcloud.com/oembed?format=json&url=' + vm.trackUrl + '&auto_play=true&maxheight=200';
 
 	      return $http( { method: 'GET', url: vm.url });
 	    };

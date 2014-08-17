@@ -11,6 +11,7 @@
 		vm.list = [];
 		vm.playlist = [];
 		vm.API = 'a44cfa630acf25634739522063b81015'; // Your API Key
+		vm.index = 0;
 
 		vm.addToPlaylist = function(index){
 			vm.playlist.push(vm.list[index]);
@@ -22,10 +23,24 @@
 		};
 
 		vm.showSong = function(index){
+			vm.index = index;
 		  SoundcloudService.embed( vm.list[index].permalink_url )
 	      .success(function(data, status) {
-	      	console.log(data);
-      		  vm.embedHtml = $sce.trustAsHtml(data.html);;
+      		  vm.embedHtml = $sce.trustAsHtml(data.html);
+	      }).error(function(data, status) {
+
+	          vm.data = data || "Request failed";
+	          vm.status = status;
+	          console.log('OKFALSE', status, data);
+
+	      });
+		};
+
+		vm.showSongPlaylist = function(index){
+			vm.index = index;
+		  SoundcloudService.embed( vm.playlist[index].permalink_url )
+	      .success(function(data, status) {
+      		  vm.embedHtml = $sce.trustAsHtml(data.html);
 	      }).error(function(data, status) {
 
 	          vm.data = data || "Request failed";

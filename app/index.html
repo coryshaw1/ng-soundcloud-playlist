@@ -35,7 +35,7 @@
     <header class="app-bar promote-layer">
       <div class="app-bar-container">
         <button class="menu"><img src="images/hamburger.svg" alt="Menu"></button>
-        <h1 class="logo">Web Starter Kit</h1>
+        <h1 class="logo">Soundcloud Playlist Sharing</h1>
         <section class="app-bar-actions">
         <!-- Put App Bar Buttons Here -->
         </section>
@@ -60,6 +60,9 @@
       <div ng-controller="SoundcloudController as sc">
         <ul>
           <li ng-repeat="x in sc.playlist"> 
+            <a href="javascript:;" ng-click="sc.showSongPlaylist($index)" class="cta--secondary">
+                <i class="icon icon-chevron-right"></i>Play
+            </a>
             {{ x.user.username }} - {{ x.title }} 
             <a href="javascript:;" ng-click="sc.removeFromPlaylist($index)" class="cta--primary">Remove</a>
           </li>
@@ -68,9 +71,9 @@
           <input type="text" ng-model="sc.ui" required>
           <input type="submit" class="button--primary" value="Search"></input>
         </form>
-        <div ng-bind-html="sc.embedHtml"></div>
+        <div dynamic="sc.embedHtml"></div>
         <ul>
-          <li ng-repeat="x in sc.list"> 
+          <li ng-repeat="x in sc.list" ng-if="x.embeddable_by == 'all'"> 
             <a href="javascript:;" ng-click="sc.showSong($index)" class="cta--secondary">
                 <i class="icon icon-chevron-right"></i>Play
             </a>
@@ -84,9 +87,11 @@
     <!-- build:js scripts/main.min.js -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.js" type="text/javascript" charset="utf-8"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular-route.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://w.soundcloud.com/player/api.js"></script>
     <script src="scripts/main.js"></script>
     <script src="scripts/controllers/HomeController.js"></script>
     <script src="scripts/controllers/SoundcloudController.js"></script>
+    <script src="scripts/directives/SoundcloudDirective.js"></script>
     <script src="scripts/services/SoundcloudService.js"></script>
     <!-- endbuild -->
 
