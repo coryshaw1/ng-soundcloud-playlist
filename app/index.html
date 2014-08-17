@@ -60,9 +60,10 @@
       <div ng-controller="SoundcloudController as sc">
         <ul>
           <li ng-repeat="x in sc.playlist"> 
-            <a href="javascript:;" ng-click="sc.showSongPlaylist($index)" class="cta--secondary">
+            <a href="javascript:;" ng-click="sc.showSongPlaylist($index)" class="cta--secondary" ng-if="sc.playlistIndex != $index">
                 <i class="icon icon-chevron-right"></i>Play
             </a>
+            <span ng-if="sc.playlistIndex == $index">PLAYING... </span>
             {{ x.user.username }} - {{ x.title }} 
             <a href="javascript:;" ng-click="sc.removeFromPlaylist($index)" class="cta--primary">Remove</a>
           </li>
@@ -74,9 +75,10 @@
         <div dynamic="sc.embedHtml"></div>
         <ul>
           <li ng-repeat="x in sc.list" ng-if="x.embeddable_by == 'all'"> 
-            <a href="javascript:;" ng-click="sc.showSong($index)" class="cta--secondary">
+            <a href="javascript:;" ng-click="sc.showSong($index)" class="cta--secondary" ng-if="sc.index != $index">
                 <i class="icon icon-chevron-right"></i>Play
             </a>
+            <span ng-if="sc.index == $index">PLAYING... </span>
             {{ x.user.username }} - {{ x.title }} 
             <a href="javascript:;" ng-click="sc.addToPlaylist($index)" class="cta--primary">Add to Playlist</a>
           </li>

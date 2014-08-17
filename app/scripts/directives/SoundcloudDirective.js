@@ -13,20 +13,19 @@
         link: function (scope, ele, attrs) {
           scope.$watch(attrs.dynamic, function(html) {
             ele.html(html);
+
+            //compile elements to DOM to make Soundcloud widget object
             $compile(ele.contents())(scope);
+
             if(document.querySelector('iframe')){
               var widget = SC.Widget(document.querySelector('iframe'));
-              console.log(widget);
+
               widget.bind(SC.Widget.Events.FINISH, function(){
-                scope.sc.index++;
-                console.log(scope.sc.index);
+                scope.sc.index++; //increment index to next in list
                 scope.sc.showSong(scope.sc.index);
               });
-              widget.bind(SC.Widget.Events.PAUSE, function(){
-                console.log("PAUSEDDDD");
-                console.log(scope);
-              });
             }
+
           });
         }
       };
