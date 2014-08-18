@@ -38,7 +38,6 @@
 		vm.showSong = function(index){
 			vm.index = index;
 			vm.playlistIndex = -1;
-			console.log(index);
 		  SoundcloudService.embed( vm.list[index].permalink_url )
 	      .success(function(data, status) {
       		  vm.embedHtml = $sce.trustAsHtml(data.html);
