@@ -42,15 +42,15 @@
 
 .button--primary {
   @extend .button;
-  @include style-button(#4285f4, #ffffff);
+  @include style-button($colorOrange, #ffffff);
 }
 
 .button--secondary {
   @extend .button;
-  @include style-button(#ffffff, $colorBlue);
+  @include style-button(#ffffff, $colorOrange);
 }
 
 .button--secondary-variation {
   @extend .button;
-  @include style-button(#ffffff, $colorBlue, true);
+  @include style-button(#ffffff, $colorOrange, true);
 }

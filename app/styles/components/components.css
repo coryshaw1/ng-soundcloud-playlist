@@ -2232,20 +2232,20 @@ li > p {
 }
 
 .button--primary {
-  background: #4285f4;
+  background: #fd5c01;
   color: white;
-  border: 1px solid #1266f1;
+  border: 1px solid #ca4a01;
 }
 
 .button--secondary {
   background: white;
-  color: #3372df;
+  color: #fd5c01;
   border: 1px solid #e6e6e6;
 }
 
 .button--secondary-variation {
   background: white;
-  color: #3372df;
+  color: #fd5c01;
   border: 1px solid #e6e6e6;
   border-color: transparent;
 }
@@ -2604,7 +2604,8 @@ ol.list-links.list-links--secondary a::before {
 *
 **/
 a {
-  color: #3372df;
+  color: #fe9d66;
+  text-decoration: none;
 }
 
 a:hover {
@@ -2613,7 +2614,7 @@ a:hover {
 
 .cta--primary {
   font-family: "Roboto Condensed", Helvetica, sans-serif;
-  color: #3372df;
+  color: #fe9d66;
   font-weight: 400;
   display: inline-block;
   line-height: 1;
@@ -2633,7 +2634,7 @@ a:hover {
 
 .cta--secondary {
   font-family: "Roboto Condensed", Helvetica, sans-serif;
-  color: #3372df;
+  color: #fe9d66;
   font-weight: 400;
   display: inline-block;
   line-height: 1;
@@ -3342,6 +3343,10 @@ object {
   color: #f4b400;
 }
 
+.color--orange {
+  color: #fd5c01;
+}
+
 .color--blue-secondary {
   color: #b7cdf4;
 }
@@ -3356,6 +3361,10 @@ object {
 
 .color--yellow-secondary {
   color: #ffd45b;
+}
+
+.color--orange-secondary {
+  color: #fe9d66;
 }
 
 .color--gray-background {
