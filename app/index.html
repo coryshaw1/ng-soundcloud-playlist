@@ -75,7 +75,7 @@
         <div dynamic="sc.embedHtml"></div>
 
         <loading var="sc.loading"></loading>
-        
+
         <ul>
           <li ng-repeat="x in sc.list" ng-if="x.embeddable_by == 'all'"> 
             <a href="javascript:;" ng-click="sc.showSong($index)" class="cta--secondary" ng-if="sc.index != $index">
@@ -90,14 +90,15 @@
     </main>
 
     <!-- build:js scripts/main.min.js -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.js" type="text/javascript" charset="utf-8"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular-route.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="https://w.soundcloud.com/player/api.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.js" type="text/javascript"></script>
+    <script src="//w.soundcloud.com/player/api.js"></script> 
+
     <script src="scripts/main.js"></script>
     <script src="scripts/controllers/HomeController.js"></script>
     <script src="scripts/controllers/SoundcloudController.js"></script>
     <script src="scripts/directives/DynamicDirective.js"></script>
     <script src="scripts/directives/LoadingDirective.js"></script>
+    <script src="scripts/services/NotificationService.js"></script>
     <script src="scripts/services/SoundcloudService.js"></script>
     <!-- endbuild -->
 

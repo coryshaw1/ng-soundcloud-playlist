@@ -22,7 +22,7 @@
 
               widget.bind(SC.Widget.Events.FINISH, function(){
 
-                if(scope.sc.index != -1){
+                if(scope.sc.index !== -1){
 
                   //Currently playing from search list
                   //check if playing last song of search list

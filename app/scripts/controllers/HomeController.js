@@ -6,7 +6,7 @@
 		.controller('HomeController', HomeController);
 
 	function HomeController () {
-		this.title = "Cory";
+		this.title = 'Cory';
 	}
 				
 })();

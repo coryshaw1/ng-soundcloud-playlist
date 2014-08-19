@@ -5,7 +5,7 @@
 		.module('app')
 		.controller('SoundcloudController', SoundcloudController);
 
-	function SoundcloudController ($sce, SoundcloudService) {
+	function SoundcloudController ($sce, SoundcloudService, NotificationService) {
 		var vm = this;
 
 		vm.list = [];
@@ -20,7 +20,7 @@
 			vm.list.splice(index, 1);
 
 			//set playlist index if playing
-			if(index == vm.index){
+			if(index === vm.index){
 				vm.index = -1; //reset list index
 				vm.playlistIndex = vm.playlist.length - 1; //set playlist index to last item
 			}
@@ -30,7 +30,7 @@
 			vm.playlist.splice(index, 1);
 
 			//reset playlist index if playing
-			if(index == vm.playlistIndex){
+			if(index === vm.playlistIndex){
 				vm.playlistIndex = -1; 
 			}
 		};
@@ -39,14 +39,18 @@
 		  vm.index = index;
 		  vm.playlistIndex = -1;
 	      vm.loading = true;
+	      var notificationTitle = vm.list[index].user.username + '\n' + vm.list[index].title;
 
+		  /*jshint camelcase: false */
+      	  NotificationService.fire(notificationTitle, vm.list[index].artwork_url);
+
+		  /*jshint camelcase: false */
 		  SoundcloudService.embed( vm.list[index].permalink_url )
 	      .success(function(data, status) {
 	      	  vm.loading = false;
       		  vm.embedHtml = $sce.trustAsHtml(data.html);
 	      }).error(function(data, status) {
-	          vm.data = data || "Request failed";
-	          vm.status = status;
+	      	  vm.loading = false;
 	          console.log('OKFALSE', status, data);
 	      });
 		};
@@ -55,15 +59,18 @@
 		  vm.playlistIndex = index;
 	   	  vm.index = -1;
 	      vm.loading = true;
-	   	  
+	      var notificationTitle = vm.playlist[index].user.username + '\n' + vm.playlist[index].title;
+
+		  /*jshint camelcase: false */
+      	  NotificationService.fire(notificationTitle, vm.playlist[index].artwork_url);
+
+		  /*jshint camelcase: false */
 		  SoundcloudService.embed( vm.playlist[index].permalink_url )
 	      .success(function(data, status) {
 	      	  vm.loading = false;
       		  vm.embedHtml = $sce.trustAsHtml(data.html);
 	      }).error(function(data, status) {
 	      	  vm.loading = false;
-	          vm.data = data || "Request failed";
-	          vm.status = status;
 	          console.log('OKFALSE', status, data);
 	      });
 		};
@@ -78,8 +85,6 @@
       		  vm.list = data;
 	      }).error(function(data, status) {
 	      	  vm.loading = false;
-	          vm.data = data || "Request failed";
-	          vm.status = status;
 	          console.log('OKFALSE', status, data);
 	      });
 	    };
