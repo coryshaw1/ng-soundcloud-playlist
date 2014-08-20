@@ -120,7 +120,7 @@ gulp.task('html', function () {
   return gulp.src('app/**/*.html')
     .pipe($.useref.assets({searchPath: '{.tmp,app}'}))
     // Concatenate And Minify JavaScript
-    .pipe($.if('*.js', $.uglify({preserveComments: 'some'})))
+    .pipe($.if('*.js', $.uglify({preserveComments: 'some', mangle: false})))
     // Remove Any Unused CSS
     // Note: If not using the Style Guide, you can delete it from
     // the next line to only include styles your project uses.
@@ -132,7 +132,8 @@ gulp.task('html', function () {
       // CSS Selectors for UnCSS to ignore
       ignore: [
         '.navdrawer-container.open',
-        /.app-bar.open/
+        /.app-bar.open/,
+        /.*spinner.*/ //used in Angular loading directive so will be removed if not ignored
       ]
     })))
     // Concatenate And Minify Styles
@@ -142,7 +143,7 @@ gulp.task('html', function () {
     // Update Production Style Guide Paths
     .pipe($.replace('components/components.css', 'components/main.min.css'))
     // Minify Any HTML
-    .pipe($.if('*.html', $.minifyHtml()))
+    //.pipe($.if('*.html', $.minifyHtml()))
     // Output Files
     .pipe(gulp.dest('dist'))
     .pipe($.size({title: 'html'}));
