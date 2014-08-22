@@ -67,6 +67,9 @@
             {{ x.user.username }} - {{ x.title }} 
             <a href="javascript:;" ng-click="sc.removeFromPlaylist($index)" class="cta--primary">Remove</a>
           </li>
+          <li ng-if="sc.playlist.length > 0">
+            <a href="javascript:;" ng-click="sc.sharePlaylist()" class="cta--primary">Share Playlist</a>
+          </li>
         </ul>
         <form name="scAdd" ng-submit="sc.search()">
           <input type="text" ng-model="sc.ui" required>
@@ -91,7 +94,7 @@
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.js" type="text/javascript"></script>
     <script src="//w.soundcloud.com/player/api.js"></script> 
-    
+
     <!-- build:js scripts/main.min.js -->
     <script src="scripts/main.js"></script>
     <script src="scripts/controllers/HomeController.js"></script>

@@ -13,7 +13,7 @@
 		  vm.trackUrl = trackUrl;
 	      vm.url = 'http://api.soundcloud.com/oembed?format=json&url=' + vm.trackUrl + '&auto_play=true&maxheight=200';
 
-	      return $http( { method: 'GET', url: vm.url });
+	      return $http.get(vm.url);
 	    };
 
 	    vm.search = function( q, apiKey ) {
@@ -21,7 +21,15 @@
 	      vm.query = q;
 	      vm.url = 'http://api.soundcloud.com/tracks.json?q='+ vm.query + '&client_id=' + vm.apiKey;
 
-	      return $http( { method: 'GET', url: vm.url });
+	      return $http.get(vm.url);
+	    };
+
+	    vm.track = function( trackId, apiKey ){
+		  vm.apiKey = apiKey;
+	      vm.trackId = trackId;
+	      vm.url = 'http://api.soundcloud.com/tracks/'+ vm.trackId + '.json?client_id=' + vm.apiKey;
+
+	      return $http.get(vm.url);
 	    };
 	}
 	

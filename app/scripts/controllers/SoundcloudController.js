@@ -35,6 +35,22 @@
 			}
 		};
 
+		vm.sharePlaylist = function(){
+			var shareHash = "";
+			for(var i = 0; i < vm.playlist.length; i++){
+				/*jshint camelcase: false */
+      	  		shareHash += vm.playlist[i].id+";";
+				SoundcloudService.track(vm.playlist[i].id, vm.API)
+				.success(function(data, status){
+					console.log("Song:", data);
+				})
+				.error(function(data, status){
+					console.log("Error:", data);
+				});
+			}
+			shareHash = btoa(shareHash);
+		};
+
 		vm.showSong = function(index){
 		  vm.index = index;
 		  vm.playlistIndex = -1;
@@ -49,9 +65,30 @@
 	      .success(function(data, status) {
 	      	  vm.loading = false;
       		  vm.embedHtml = $sce.trustAsHtml(data.html);
-	      }).error(function(data, status) {
+	      }).error(function(data, status, headers, config) {
 	      	  vm.loading = false;
-	          console.log('OKFALSE', status, data);
+	      	  var configText = function(){
+	      	  	var output = '';
+	      	  	for (var property in config) {
+	      	  		if(property){
+				    	output += property + ': ' + config[property].toString()+'\n ';
+	      	  		}
+				}
+				return output;
+	      	  };
+	      	  var headersText = function(){
+	      	  	var output = '';
+	      	  	for (var property in headers) {
+	      	  		if(property){
+	      	  			output += property + ': ' + headers[property].toString()+'\n ';	
+	      	  		}
+				}
+				return output;
+	      	  };
+	          console.log('Status:', status,
+	          				'\nData:', data, 
+	          				'\nHeaders:', headersText(), 
+	          				'\nConfig:', configText());
 	      });
 		};
 
@@ -69,9 +106,9 @@
 	      .success(function(data, status) {
 	      	  vm.loading = false;
       		  vm.embedHtml = $sce.trustAsHtml(data.html);
-	      }).error(function(data, status) {
+	      }).error(function(data, status, config, statusText) {
 	      	  vm.loading = false;
-	          console.log('OKFALSE', status, data);
+	          console.log('Show Song Playlist Error:', status, data, config, statusText);
 	      });
 		};
 
@@ -83,9 +120,9 @@
 	      	  vm.loading = false;
 	      	  vm.index = -1; //reset search list index
       		  vm.list = data;
-	      }).error(function(data, status) {
+	      }).error(function(data, status, headers, config, statusText) {
 	      	  vm.loading = false;
-	          console.log('OKFALSE', status, data);
+	          console.log('Search Error:', status, data, headers, config, statusText);
 	      });
 	    };
 	}
