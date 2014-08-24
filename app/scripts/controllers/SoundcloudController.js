@@ -5,7 +5,7 @@
 		.module('app')
 		.controller('SoundcloudController', SoundcloudController);
 
-	function SoundcloudController ($sce, $location, SoundcloudService, NotificationService) {
+	function SoundcloudController ($location, $sce, SoundcloudService, NotificationService) {
 		var vm = this;
 
 		vm.list = [];
@@ -15,12 +15,9 @@
 		vm.playlistIndex = -1;
 		vm.loading = false;
 
-		vm.q = $location.search().q;
-		console.log($location.search());
-
-		if(vm.q){
+		//check for query string on controller load
+		if($location.search().q){
 			var ids = atob($location.search().q).split(';');
-			console.log(ids);
 			for(var i = 0; i < ids.length; i++){
 				if(ids[i].length > 0){
 					SoundcloudService.track(ids[i], vm.API)
@@ -28,12 +25,16 @@
 						vm.playlist.push(data);
 					})
 					.error(function(data, status){
-						alert('Invalid share id!');
+						console.log(data);
+						console.log('Invalid share id!');
+						vm.playlist = []; //empty playlist
 						return false;
 					});
 				}
 			}
 		}
+
+		//TODO: add playlist sorting support
 
 		vm.addToPlaylist = function(index){
 			vm.playlist.push(vm.list[index]);
@@ -59,10 +60,14 @@
 			var shareHash = '';
 			for(var i = 0; i < vm.playlist.length; i++){
 				/*jshint camelcase: false */
-      	  		shareHash += vm.playlist[i].id+';';
+      	  		shareHash += vm.playlist[i].id;
+      	  		if(i !== vm.playlist.length - 1){
+      	  			shareHash += ';';
+      	  		}
 			}
 			shareHash = btoa(shareHash);
-			console.log(shareHash);
+
+			//TODO: make modal with share url here
 		};
 
 		vm.showSong = function(index){
