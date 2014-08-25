@@ -5,6 +5,7 @@
 		.module('app')
 		.controller('SoundcloudController', SoundcloudController);
 
+
 	function SoundcloudController ($location, $sce, SoundcloudService, NotificationService) {
 		var vm = this;
 
@@ -33,8 +34,6 @@
 				}
 			}
 		}
-
-		//TODO: add playlist sorting support
 
 		vm.addToPlaylist = function(index){
 			vm.playlist.push(vm.list[index]);
@@ -68,6 +67,7 @@
 			shareHash = btoa(shareHash);
 
 			//TODO: make modal with share url here
+			confirm(shareHash);
 		};
 
 		vm.showSong = function(index){

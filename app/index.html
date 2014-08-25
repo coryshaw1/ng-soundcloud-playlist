@@ -58,15 +58,17 @@
       <p>Search Soundcloud tracks below.</p>
 
       <div ng-controller="SoundcloudController as sc">
-        <ul>
+        <ul ui-sortable ng-model="sc.playlist">
           <li ng-repeat="x in sc.playlist"> 
             <a href="javascript:;" ng-click="sc.showSongPlaylist($index)" class="cta--secondary" ng-if="sc.playlistIndex != $index">
                 <i class="icon icon-chevron-right"></i>Play
             </a>
             <span ng-if="sc.playlistIndex == $index">PLAYING... </span>
-            {{ x.user.username }} - {{ x.title }} 
+            <span style="cursor: move">{{ x.user.username }} - {{ x.title }}</span> 
             <a href="javascript:;" ng-click="sc.removeFromPlaylist($index)" class="cta--primary">Remove</a>
           </li>
+        </ul>
+        <ul>
           <li ng-if="sc.playlist.length > 0">
             <a href="javascript:;" ng-click="sc.sharePlaylist()" class="cta--primary">Share Playlist</a>
           </li>
@@ -92,12 +94,16 @@
       </div>
     </main>
 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.js" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.js" type="text/javascript"></script>
     <script src="//w.soundcloud.com/player/api.js"></script> 
 
     <!-- build:js scripts/main.min.js -->
+    <script src="scripts/common/jquery-ui.js" type="text/javascript"></script>
     <script src="scripts/main.js"></script>
     <script src="scripts/controllers/HomeController.js"></script>
+    <script src="scripts/controllers/ModalController.js"></script>
     <script src="scripts/controllers/SoundcloudController.js"></script>
     <script src="scripts/directives/DynamicDirective.js"></script>
     <script src="scripts/directives/LoadingDirective.js"></script>
