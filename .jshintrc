@@ -58,6 +58,7 @@
         "angular": false,
         "$": false,
         "SC": false,
-        "Notification": false
+        "Notification": false,
+        "toastr": false
     }
 }

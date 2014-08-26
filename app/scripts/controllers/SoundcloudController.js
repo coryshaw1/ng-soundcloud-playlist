@@ -67,7 +67,8 @@
 			shareHash = btoa(shareHash);
 
 			//TODO: make modal with share url here
-			confirm(shareHash);
+			window.prompt('Share this link:', 'http://coryshaw.us/ngSoundcloudPlaylist/?#?q='+shareHash);
+			//NotificationService.sharePlaylist(shareHash);
 		};
 
 		vm.showSong = function(index){
@@ -77,37 +78,16 @@
 	      var notificationTitle = vm.list[index].user.username + '\n' + vm.list[index].title;
 
 		  /*jshint camelcase: false */
-      	  NotificationService.fire(notificationTitle, vm.list[index].artwork_url);
+      	  NotificationService.songStart(notificationTitle, vm.list[index].artwork_url);
 
 		  /*jshint camelcase: false */
 		  SoundcloudService.embed( vm.list[index].permalink_url )
 	      .success(function(data, status) {
 	      	  vm.loading = false;
       		  vm.embedHtml = $sce.trustAsHtml(data.html);
-	      }).error(function(data, status, headers, config) {
+	      }).error(function(data, status, config) {
 	      	  vm.loading = false;
-	      	  var configText = function(){
-	      	  	var output = '';
-	      	  	for (var property in config) {
-	      	  		if(property){
-				    	output += property + ': ' + config[property].toString()+'\n ';
-	      	  		}
-				}
-				return output;
-	      	  };
-	      	  var headersText = function(){
-	      	  	var output = '';
-	      	  	for (var property in headers) {
-	      	  		if(property){
-	      	  			output += property + ': ' + headers[property].toString()+'\n ';	
-	      	  		}
-				}
-				return output;
-	      	  };
-	          console.log('Status:', status,
-	          				'\nData:', data, 
-	          				'\nHeaders:', headersText(), 
-	          				'\nConfig:', configText());
+	          console.log('Show Song Error:', status, data, config);
 	      });
 		};
 
@@ -118,16 +98,16 @@
 	      var notificationTitle = vm.playlist[index].user.username + '\n' + vm.playlist[index].title;
 
 		  /*jshint camelcase: false */
-      	  NotificationService.fire(notificationTitle, vm.playlist[index].artwork_url);
+      	  NotificationService.songStart(notificationTitle, vm.playlist[index].artwork_url);
 
 		  /*jshint camelcase: false */
 		  SoundcloudService.embed( vm.playlist[index].permalink_url )
 	      .success(function(data, status) {
 	      	  vm.loading = false;
       		  vm.embedHtml = $sce.trustAsHtml(data.html);
-	      }).error(function(data, status, config, statusText) {
+	      }).error(function(data, status, config) {
 	      	  vm.loading = false;
-	          console.log('Show Song Playlist Error:', status, data, config, statusText);
+	          console.log('Show Song Playlist Error:', status, data, config);
 	      });
 		};
 

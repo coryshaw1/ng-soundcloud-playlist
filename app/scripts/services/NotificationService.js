@@ -7,7 +7,8 @@
 
 	function NotificationService($timeout){
 		var vm = this;
-		vm.fire = function (message, icon) {
+
+		vm.songStart = function (message, icon) {
 			var options = {
 			    		title: 'Now playing', 
 			    		body: message, 
@@ -44,6 +45,28 @@
 			}
 
 		};	
+
+		vm.sharePlaylist = function(shareHash){
+			toastr.options = {
+				'closeButton': true,
+				'debug': false,
+				'positionClass': 'toast-bottom-full-width',
+				'showDuration': '0',
+				'hideDuration': '1000',
+				'timeOut': '0',
+				'extendedTimeOut': '0',
+				'showEasing': 'swing',
+				'hideEasing': 'linear',
+				'showMethod': 'fadeIn',
+				'hideMethod': 'fadeOut',
+				'tapToDismiss': false
+			};
+
+			toastr.info('<button class="button--secondary">Click to copy</button>'+
+				'<input type="text" disabled style="color: black" value="'+
+					'http://coryshaw.us/ngSoundcloudPlaylist/?#?q='+shareHash+'"></input>',
+				'Copy the URL below');
+		};
 	}
 	
 })();
