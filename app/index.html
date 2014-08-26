@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="description" content="Create and share Soundcloud playlists without a Soundcloud login">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Web Starter Kit</title>
+    <title>Soundcloud Playlist Sharing</title>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -20,15 +20,11 @@
     <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
     <meta name="msapplication-TileColor" content="#3372DF">
 
-    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
-    <!--
-    <link rel="canonical" href="http://www.example.com/">
-    -->
-
     <!-- build:css styles/components/main.min.css -->
     <link rel="stylesheet" href="styles/h5bp.css">
     <link rel="stylesheet" href="styles/components/components.css">
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/toastr.min.css">
     <!-- endbuild -->
   </head>
   <body ng-app="app" ng-strict-di>
@@ -45,20 +41,18 @@
     <nav class="navdrawer-container promote-layer">
       <h4>Navigation</h4>
       <ul>
-        <li><a href="#hello">Hello</a></li>
+        <li><a href="#">Home</a></li>
         <li><a href="#get-started">Get Started</a></li>
         <li><a href="styleguide/index.html">Style Guide</a></li>
       </ul>
     </nav>
 
-    <main ng-controller="HomeController as home">
+    <main>
 
-      <h1 id="hello">Hello, {{home.title}}</h1>
+      <h3>Build your own playlist to share!</h3>
 
-      <p>Search Soundcloud tracks below.</p>
-
-      <div ng-controller="SoundcloudController as sc">
-        <ul ui-sortable ng-model="sc.playlist">
+      <div ng-controller="SoundcloudController as sc" id="scMain">
+        <ul ui-sortable ng-model="sc.playlist" ng-if="sc.playlist.length > 0">
           <li ng-repeat="x in sc.playlist"> 
             <a href="javascript:;" ng-click="sc.showSongPlaylist($index)" class="cta--secondary" ng-if="sc.playlistIndex != $index">
                 <i class="icon icon-chevron-right"></i>Play
@@ -73,12 +67,15 @@
             <a href="javascript:;" ng-click="sc.sharePlaylist()" class="cta--primary">Share Playlist</a>
           </li>
         </ul>
+
+        <p>Search Soundcloud tracks below.</p>
+
         <form name="scAdd" ng-submit="sc.search()">
           <input type="text" ng-model="sc.ui" required>
           <input type="submit" class="button--primary" value="Search"></input>
         </form>
-        <div dynamic="sc.embedHtml"></div>
 
+        <div dynamic="sc.embedHtml" ng-bind-html="sc.embedHtml"></div>
         <loading var="sc.loading"></loading>
 
         <ul>
@@ -101,9 +98,8 @@
 
     <!-- build:js scripts/main.min.js -->
     <script src="scripts/common/jquery-ui.js" type="text/javascript"></script>
+    <script src="scripts/common/toastr.min.js" type="text/javascript"></script>
     <script src="scripts/main.js"></script>
-    <script src="scripts/controllers/HomeController.js"></script>
-    <script src="scripts/controllers/ModalController.js"></script>
     <script src="scripts/controllers/SoundcloudController.js"></script>
     <script src="scripts/directives/DynamicDirective.js"></script>
     <script src="scripts/directives/LoadingDirective.js"></script>

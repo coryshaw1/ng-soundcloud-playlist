@@ -12,10 +12,9 @@
         transclude: false,
         link: function (scope, ele, attrs) {
           scope.$watch(attrs.dynamic, function(html) {
-            ele.html(html);
-
+            
             //compile elements to DOM to make Soundcloud widget object
-            $compile(ele.contents())(scope);
+            $compile(html)(scope);
 
             if(document.querySelector('iframe')){
               var widget = SC.Widget(document.querySelector('iframe'));
