@@ -66,8 +66,8 @@
 			}
 			shareHash = btoa(shareHash);
 
-			//TODO: make modal with share url here
-			window.prompt('Share this link:', 'http://coryshaw.us/ngSoundcloudPlaylist/?#?q='+shareHash);
+			//TODO: make modal with share url here, maybe add Facebook, Twitter, G+ sharing as well
+			window.prompt('Share this link:', window.location + '?#?q=' + shareHash);
 			//NotificationService.sharePlaylist(shareHash);
 		};
 

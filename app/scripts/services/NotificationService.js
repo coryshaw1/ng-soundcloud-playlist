@@ -29,18 +29,19 @@
 			// is set, therefore it's unsafe to check for the "default" value.
 			else if (window.Notification && Notification.permission !== 'denied') {
 			  Notification.requestPermission(function (status) {
+			  	
 			    if (Notification.permission !== status) {
 			      Notification.permission = status;
+			    }
 
 			      // If the user agreed to get notified fire it
-			      if(status === 'granted'){
+			    if(status === 'granted'){
 				    var n = new Notification('Now playing...', options); //fire it
 				    n.onshow = function () { 
 				  		$timeout(n.close, 3000);  //Doesn't work in Chrome?
 					};
-			      }
-
 			    }
+
 			  });
 			}
 
